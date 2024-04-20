@@ -1,0 +1,9 @@
+{"activities":[
+{"name":"farm001","file":"farm001.json"},
+{"name":"match001","file":"match001.json"},
+{"name":"itemsRooms","file":"OE - Items in Rooms.json"},
+{"name":"placesactivities","file":"outdoor activities - places.json"},
+{"name":"schedule","file":"schedule.json"},
+{"name":"school","file":"school.json"},
+{"name":"activitiesstudents","file":"activitiesstudents.json"}
+]}

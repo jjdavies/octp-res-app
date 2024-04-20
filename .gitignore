@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#assets in public folder
+/public/activityfiles
+/public/scenes
+/public/thumbs

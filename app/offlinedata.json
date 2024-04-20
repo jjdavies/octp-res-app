@@ -1,0 +1,104 @@
+{
+  "activities": [
+    {
+      "name": "school",
+      "file": "school.json"
+    },
+    {
+      "name": "BF2U2L1FaceParts",
+      "file": "BF2U2L1FaceParts.json"
+    },
+    {
+      "name": "bf3u3familyinhouse",
+      "file": "bf3u3familyinhouse.json"
+    },
+    {
+      "name": "BF3U5L6",
+      "file": "BF3U5L6.json"
+    },
+    {
+      "name": "binary",
+      "file": "binary.json"
+    },
+    {
+      "name": "be1u7food",
+      "file": "be1u7food.json"
+    },
+    {
+      "name": "BF2U6ClothesWeather",
+      "file": "BF2U6ClothesWeather.json"
+    },
+    {
+      "name": "school",
+      "file": "school.json"
+    },
+    {
+      "name": "BF3U1MC6",
+      "file": "BF3U1MC6.json"
+    },
+    {
+      "name": "BF2U3L6",
+      "file": "BF2U3L6.json"
+    },
+    {
+      "name": "BF2U3L4",
+      "file": "BF2U3L4.json"
+    },
+    {
+      "name": "farmOD",
+      "file": "farmOD.json"
+    },
+    {
+      "name": "bf2u7l4farmandnumbers2",
+      "file": "bf2u7l4farmandnumbers2.json"
+    },
+    {
+      "name": "farmprepositions",
+      "file": "farmprepositions.json"
+    },
+    {
+      "name": "BF3U5-menu",
+      "file": "BF3U5-menu.json"
+    },
+    {
+      "name": "BF1U8L2",
+      "file": "BF1U8L2.json"
+    },
+    {
+      "name": "BF2U5L9 - Fruit Seeds",
+      "file": "BF2U5L9 - Fruit Seeds.json"
+    },
+    {
+      "name": "BF3U8Time",
+      "file": "BF3U8Time.json"
+    },
+    {
+      "name": "BF2U5L7",
+      "file": "BF2U5L7.json"
+    },
+    {
+      "name": "BF2U3L7Shapesandnumbers",
+      "file": "BF2U3L7Shapesandnumbers.json"
+    },
+    {
+      "name": "familytree",
+      "file": "familytree.json"
+    },
+    {
+      "name": "bf1u1red2",
+      "file": "bf1u1red2.json"
+    },
+    {
+      "name": "BF2U5L7PhonicsReview(Ss)",
+      "file": "BF2U5L7PhonicsReview(Ss).json"
+    },
+    {
+      "name": "familyroomshouse",
+      "file": "familyroomshouse.json"
+    },
+    {
+      "name": "BF1U7Practice",
+      "file": "BF1U7Practice.json"
+    }
+  ]
+}

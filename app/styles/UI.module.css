@@ -1,0 +1,102 @@
+.activityPage {
+  background: rgb(162, 221, 255);
+  height: 100vh;
+}
+
+.activityList {
+  display: flex;
+  /* height: 100vh; */
+  width: 100%;
+  background: rgb(162, 221, 255);
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+
+  overflow: auto;
+}
+
+.activityItem {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  background: snow;
+  border: 0;
+  border-radius: 10px 10px 0 0;
+  margin: 3px;
+  min-width: 100px;
+  min-height: 108px;
+  cursor: pointer;
+}
+
+.filterMenu {
+  display: flex;
+  /* justify-content: space-around; */
+  font-size: 23px;
+  padding: 10px;
+}
+
+.filterItem {
+  margin: 5px;
+}
+
+.select {
+  height: 100%;
+  font-size: 20px;
+  margin: 0 2px;
+}
+
+.chosenFilterItem {
+  display: flex;
+  align-items: center;
+  background: pink;
+  border-radius: 20px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.remove {
+  display: flex;
+  align-items: center;
+}
+
+.mainMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: rgb(162, 221, 255);
+}
+
+.mainMenuItem {
+  /* border: 2px solid black; */
+  margin: 20px;
+  width: 90%;
+  height: 400px;
+  text-align: center;
+  padding: 20px;
+  font-size: 30px;
+  background: snow;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+  cursor: pointer;
+}
+
+.sceneMenu {
+  display: flex;
+  background: rgb(162, 221, 255);
+  height: 100vh;
+}
+
+.sceneMenuItem {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  background: snow;
+  border: 0;
+  border-radius: 10px 10px 0 0;
+  margin: 3px;
+  min-width: 100px;
+  min-height: 108px;
+  cursor: pointer;
+}
