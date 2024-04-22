@@ -7,6 +7,7 @@ import Image from 'next/image';
 import BrokenFile from '../img/icons/brokenfile.png';
 import SmallX from '../img/icons/x.svg';
 import Activity from '../interfaces/NewActivity';
+import NavArrow from '../img/buttons/navArrow.svg';
 
 interface ActivityLink {
   activity: any;
@@ -68,7 +69,19 @@ export default function Page() {
   return (
     <div className={uiStyles.activityPage}>
       <div className={uiStyles.filterMenu}>
-        Filter:
+        <Link href="/">
+          <Image
+            src={NavArrow}
+            width={100}
+            height={100}
+            style={{
+              top: 0,
+              left: 0,
+              transform: 'rotate(180deg)',
+            }}
+          />
+        </Link>
+        {/* <div className={uiStyles.filterItem}>Filter:</div> */}
         {selectedCourse !== '-' && (
           <div
             className={uiStyles.chosenFilterItem}

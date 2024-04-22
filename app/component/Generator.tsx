@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
-import ActivityResource from '../../interfaces/ActivityResource';
-import ActivityStage from '../../interfaces/ActivityStage';
+import ActivityResource from '../interfaces/ActivityResource';
+import ActivityStage from '../interfaces/ActivityStage';
 
 import Resource from './Resource';
 
