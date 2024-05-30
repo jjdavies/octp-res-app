@@ -2,16 +2,16 @@ import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import Activity from '../interfaces/NewActivity';
 import Resource from './Resource';
-import DataContext from './DataContext';
+import DataContext from './player/DataContext';
 
 import builderStyles from '../styles/Builder.module.css';
-import Connections from './Connections';
+import Connections from './player/Connections';
 import GameControl from './GameControl';
 import Generator from './Generator';
 
 import navRight from '../img/buttons/navArrow.svg';
 import navRightActive from '../img/buttons/navArrowActive.svg';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 
 interface PlayerProps {
   name: string;
@@ -54,18 +54,18 @@ export default function Player(props: PlayerProps) {
     console.log('touch nav');
   };
 
-  const getNewThumb = async (): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      html2canvas(
-        document.getElementById('playerContainer') as HTMLElement
-      ).then((canvas) => {
-        resolve(canvas.toDataURL('image/png'));
-      });
-    });
-  };
+  // const getNewThumb = async (): Promise<string> => {
+  //   return new Promise((resolve, reject) => {
+  //     html2canvas(
+  //       document.getElementById('playerContainer') as HTMLElement
+  //     ).then((canvas) => {
+  //       resolve(canvas.toDataURL('image/png'));
+  //     });
+  //   });
+  // };
 
   const generateThumb = async () => {
-    const thumb = await getNewThumb();
+    // const thumb = await getNewThumb();
 
     const element = document.createElement('a');
     element.href = thumb;

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Player from '../../component/Player';
 import Activity from '@/app/interfaces/NewActivity';
 
-import { DataProvider as PlayerDataProvider } from '../../component/DataContext';
+import { DataProvider as PlayerDataProvider } from '../../component/player/DataContext';
 interface ActivitySlugProps {
   params: { slug: string };
 }

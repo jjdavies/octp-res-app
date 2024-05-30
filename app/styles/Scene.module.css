@@ -11,6 +11,19 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+.canvasOverlaySchool {
+  /* background: purple; */
+  position: absolute;
+  /* display: flex; */
+  align-items: center;
+  justify-content: space-around;
+  width: 1030px;
+  height: 579px;
+  margin: auto;
+  z-index: 99;
+  /* background: rgba(255, 255, 255, 0.2); */
+}
+
 .button {
   border: 4px lightgray solid;
   border-top: 0;

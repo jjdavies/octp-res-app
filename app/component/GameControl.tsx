@@ -4,7 +4,7 @@ import builderStyles from '../styles/Builder.module.css';
 
 import ResetWhite from '../img/icons/white_reset.svg';
 import TickWhite from '../img/icons/white_tick.svg';
-import DataContext from './DataContext';
+import DataContext from './player/DataContext';
 import AnswerSymbol from './AnswerSymbol';
 
 interface GameControlProps {

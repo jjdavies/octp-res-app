@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import Draggable from 'react-draggable';
 import ActivityResource from '../interfaces/ActivityResource';
-import DataContext from './DataContext';
+import DataContext from './player/DataContext';
 
 import CorrectIcon from '../img/buttons/assignCorrect.svg';
 import IncorrectIcon from '../img/buttons/assignIncorrect.svg';
@@ -220,11 +220,13 @@ export default function Resource(props: ResourceProps) {
   };
 
   const dragInProgress = (e, ui) => {
+    // console.log(ui.x, ui.y);
     setHasDragged(true);
     setPos({ x: ui.x, y: ui.y });
   };
 
   const dragComplete = (e, ui) => {
+    console.log(ui.x, ui.y);
     if (props.multi && props.addResource) props.addResource();
     if (activityResource.resourceSettings.targetPosition !== '0,0') {
       //target position available

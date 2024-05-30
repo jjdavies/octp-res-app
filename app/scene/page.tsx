@@ -13,9 +13,10 @@ export default function page() {
           style={{ transform: 'rotate(180deg)' }}
           width={100}
           height={100}
+          alt="navarrowback"
         />
       </Link>
-      <Link href={'/scene/' + 'DayNight'}>
+      <Link href={'/scene/' + 'DayNight'} style={{ height: '100px' }}>
         <div className={uiStyles.sceneMenuItem}>
           DayNight
           <Image
@@ -23,6 +24,28 @@ export default function page() {
             width={150}
             height={100}
             alt="day night scene thumb"
+          ></Image>
+        </div>
+      </Link>
+      <Link href={'/scene/' + 'bf3school'}>
+        <div className={uiStyles.sceneMenuItem}>
+          School
+          <Image
+            src={'/scenethumbs/' + 'bf3schoolscenethumb' + '.png'}
+            width={150}
+            height={100}
+            alt="school scene thumb"
+          ></Image>
+        </div>
+      </Link>
+      <Link href={'/scene/' + 'bf3schooldnd'}>
+        <div className={uiStyles.sceneMenuItem}>
+          School (Drag-and-Drop)
+          <Image
+            src={'/scenethumbs/' + 'bf3schooldndscenethumb' + '.png'}
+            width={150}
+            height={100}
+            alt="school dnd scene thumb"
           ></Image>
         </div>
       </Link>
