@@ -4,6 +4,7 @@ import uiStyles from './styles/UI.module.css';
 import Link from 'next/link';
 import ActivityIcon from './img/icons/play-button.svg';
 import BuilderIcon from './img/buttons/build-button.svg';
+import MediaIcon from './img/icons/multimedia.png';
 import AnimatedScene from './img/icons/animatedScene.png';
 
 export default function Page() {
@@ -43,6 +44,23 @@ export default function Page() {
             <div className={uiStyles.mainMenuHeading}>
               Interactive Activities
             </div>
+            <div></div>
+          </div>
+        </Link>
+        <Link
+          href={'/media'}
+          style={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'center',
+            margin: 'auto',
+          }}
+        >
+          <div className={uiStyles.mainMenuItem}>
+            <div className={uiStyles.mainMenuIcon}>
+              <Image src={MediaIcon} alt="media icon" />
+            </div>
+            <div className={uiStyles.mainMenuHeading}>Multimedia</div>
             <div></div>
           </div>
         </Link>

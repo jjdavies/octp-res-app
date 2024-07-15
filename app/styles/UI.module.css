@@ -17,7 +17,7 @@
 .activityItem {
   display: flex;
   flex-direction: column;
-
+  color: black;
   align-items: center;
   background: snow;
   border: 0;

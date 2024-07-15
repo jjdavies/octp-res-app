@@ -1,0 +1,115 @@
+.videoList {
+  display: flex;
+  align-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  background: rgb(162, 221, 255);
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.modalTagContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.modalTags {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 500;
+  background: rgba(50, 50, 80);
+  width: 60%;
+  height: 40%;
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.tagPill {
+  display: flex;
+  background: lightblue;
+  border: 2px solid black;
+  border-radius: 25px;
+  width: auto;
+  padding: 2px 15px;
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tagPillHighlighted {
+  display: flex;
+  background: darkblue;
+  border: 2px solid black;
+  border-radius: 25px;
+  width: auto;
+  padding: 2px 15px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tagInput {
+  width: 80%;
+  font-size: 25px;
+  text-align: center;
+}
+
+.newTagButton {
+  width: 20%;
+}
+
+.modalButtons {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.modalCancel {
+  width: 100px;
+  height: 50px;
+  color: white;
+  background: red;
+}
+
+.modalSave {
+  width: 100px;
+  height: 50px;
+  color: white;
+  background: green;
+}
+
+.main {
+  display: flex;
+}
+
+.filterPane {
+  display: flex;
+  flex-direction: column;
+  /* flex-direction: row; */
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 20%;
+  color: black;
+  background: azure;
+}
+
+.filterInput {
+  width: 80%;
+  font-size: 25px;
+  text-align: center;
+  background: white;
+  margin: 5px 0;
+  color: black;
+}

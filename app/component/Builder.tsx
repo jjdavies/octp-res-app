@@ -161,22 +161,19 @@ export default function Builder(props: BuilderProps) {
     setModalSaveTag(e.target.value);
   };
 
-  const [selectedTagOptions, setSelectedTagOptions] = useState<
-    string[]
-  >([]);
+  const [selectedTagOption, setSelectedTagOption] =
+    useState<string>('');
 
   const tagOptionClicked = (tag: string) => {
-    if (selectedTagOptions.includes(tag)) {
+    if (selectedTagOption === tag) {
       //remove
-      return setSelectedTagOptions(
-        selectedTagOptions.filter((t) => t !== tag)
-      );
+      return setSelectedTagOption('');
     }
-    setSelectedTagOptions([...selectedTagOptions, tag]);
+    setSelectedTagOption(tag);
   };
 
   const saveFromModalHandler = () => {
-    if (valid) saveFromModal(modalSaveFilename + '.json');
+    if (valid) saveFromModal(modalSaveFilename, selectedTagOption);
   };
 
   const {
@@ -193,6 +190,7 @@ export default function Builder(props: BuilderProps) {
     updateThumb,
     actionsPaneActive,
     showModalSaveWindow,
+    cancelModalSave,
     saveFromModal,
   } = useContext(DataContext);
 
@@ -235,6 +233,10 @@ export default function Builder(props: BuilderProps) {
     if (id === 'canvasSpace') {
       selectImage('');
     }
+  };
+
+  const cancelSaveModal = () => {
+    cancelModalSave();
   };
 
   return (
@@ -289,7 +291,7 @@ export default function Builder(props: BuilderProps) {
               <div className={builderStyles.tagOptions}>
                 <div
                   className={`${builderStyles.tagOption} ${
-                    selectedTagOptions.includes('BF1')
+                    selectedTagOption === 'BF1'
                       ? builderStyles.tagClicked
                       : ''
                   }`}
@@ -299,7 +301,7 @@ export default function Builder(props: BuilderProps) {
                 </div>
                 <div
                   className={`${builderStyles.tagOption} ${
-                    selectedTagOptions.includes('BF2')
+                    selectedTagOption === 'BF2'
                       ? builderStyles.tagClicked
                       : ''
                   }`}
@@ -309,7 +311,7 @@ export default function Builder(props: BuilderProps) {
                 </div>
                 <div
                   className={`${builderStyles.tagOption} ${
-                    selectedTagOptions.includes('BF3')
+                    selectedTagOption === 'BF3'
                       ? builderStyles.tagClicked
                       : ''
                   }`}
@@ -319,7 +321,7 @@ export default function Builder(props: BuilderProps) {
                 </div>
                 <div
                   className={`${builderStyles.tagOption} ${
-                    selectedTagOptions.includes('BE1')
+                    selectedTagOption === 'BE1'
                       ? builderStyles.tagClicked
                       : ''
                   }`}
@@ -329,7 +331,7 @@ export default function Builder(props: BuilderProps) {
                 </div>
                 <div
                   className={`${builderStyles.tagOption} ${
-                    selectedTagOptions.includes('BE2')
+                    selectedTagOption === 'BE2'
                       ? builderStyles.tagClicked
                       : ''
                   }`}
@@ -339,7 +341,7 @@ export default function Builder(props: BuilderProps) {
                 </div>
                 <div
                   className={`${builderStyles.tagOption} ${
-                    selectedTagOptions.includes('BE3')
+                    selectedTagOption === 'BE3'
                       ? builderStyles.tagClicked
                       : ''
                   }`}
@@ -352,7 +354,7 @@ export default function Builder(props: BuilderProps) {
             <div>
               <button
                 className={`${builderStyles.modalButton}  ${builderStyles.cancelButton}`}
-                onClick={saveFromModalHandler}
+                onClick={cancelSaveModal}
               >
                 Cancel
               </button>

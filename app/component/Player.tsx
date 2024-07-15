@@ -11,7 +11,9 @@ import Generator from './Generator';
 
 import navRight from '../img/buttons/navArrow.svg';
 import navRightActive from '../img/buttons/navArrowActive.svg';
-// import html2canvas from 'html2canvas';
+
+import { saveActivityThumb } from './saveActivityFile';
+import html2canvas from 'html2canvas';
 
 interface PlayerProps {
   name: string;
@@ -54,23 +56,26 @@ export default function Player(props: PlayerProps) {
     console.log('touch nav');
   };
 
-  // const getNewThumb = async (): Promise<string> => {
-  //   return new Promise((resolve, reject) => {
-  //     html2canvas(
-  //       document.getElementById('playerContainer') as HTMLElement
-  //     ).then((canvas) => {
-  //       resolve(canvas.toDataURL('image/png'));
-  //     });
-  //   });
-  // };
+  const getNewThumb = async (): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      html2canvas(
+        document.getElementById('playerContainer') as HTMLElement
+      ).then((canvas) => {
+        // resolve(canvas.toDataURL('image/png'));
+        resolve(canvas.toDataURL('image/png'));
+      });
+    });
+  };
 
   const generateThumb = async () => {
-    // const thumb = await getNewThumb();
+    const thumb = await getNewThumb();
 
-    const element = document.createElement('a');
-    element.href = thumb;
-    element.download = `${props.name}.png`;
-    element.click();
+    // const element = document.createElement('a');
+    // element.href = thumb;
+    // element.download = `${props.name}.png`;
+    // element.click();
+    console.log('saving');
+    saveActivityThumb(props.name, thumb);
   };
 
   return (
@@ -101,6 +106,7 @@ export default function Player(props: PlayerProps) {
         <div className={builderStyles.navRight}>
           <Image
             src={navRightHover ? navRightActive : navRight}
+            onContextMenu={generateThumb}
             onMouseEnter={navEnter}
             onMouseOut={navLeave}
             onClick={navigateRight}

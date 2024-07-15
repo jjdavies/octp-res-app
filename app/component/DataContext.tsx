@@ -18,9 +18,13 @@ import Condition from '../interfaces/actionSystem/Condition';
 import CreateNewAction from './actions/CreateNewAction';
 import AddTrigger from './actions/AddTrigger';
 
+import { saveFromModalSrvr } from './saveActivityFile';
+
 import axios from 'axios';
 
 import allofflineData from '../activityfiles.json';
+
+import fsPromises from 'fs/promises';
 
 const defaultValue = {};
 
@@ -105,6 +109,7 @@ interface DataProviderState {
   setModalSave: Function;
   showModalSaveWindow: boolean;
   saveFromModal: Function;
+  cancelModalSave: Function;
 }
 
 interface DataProviderProps {
@@ -957,7 +962,7 @@ export function DataProvider({ children }: DataProviderProps) {
     return new Uint8Array(out);
   };
 
-  const offlineSave = async () => {
+  const offlineSave = async (filename: string, tag: string) => {
     // data?.setup.activitySettings.resources.map((res) => console.log(res));
     if (data) {
       const offlineData = {
@@ -970,15 +975,17 @@ export function DataProvider({ children }: DataProviderProps) {
         },
       };
       const str = JSON.stringify(offlineData);
-      const dat = encode(str);
-      const blob = new Blob([dat], {
-        type: 'application/octet-stream',
-      });
+      saveFromModal;
 
-      const element = document.createElement('a');
-      element.href = URL.createObjectURL(blob);
-      element.download = 'export.json';
-      element.click();
+      // const dat = encode(str);
+      // const blob = new Blob([dat], {
+      //   type: 'application/octet-stream',
+      // });
+
+      // const element = document.createElement('a');
+      // element.href = URL.createObjectURL(blob);
+      // element.download = 'export.json';
+      // element.click();
     }
   };
 
@@ -1302,7 +1309,11 @@ export function DataProvider({ children }: DataProviderProps) {
     setShowModalSaveWindow(true);
   };
 
-  const saveFromModal = async (filename) => {
+  const cancelModalSave = () => {
+    setShowModalSaveWindow(false);
+  };
+
+  const saveFromModal = async (filename: string, tag: string) => {
     // data?.setup.activitySettings.resources.map((res) => console.log(res));
     if (data) {
       const offlineData = {
@@ -1315,22 +1326,8 @@ export function DataProvider({ children }: DataProviderProps) {
         },
       };
       const str = JSON.stringify(offlineData);
-      const dat = encode(str);
-      const blob = new Blob([dat], {
-        type: 'application/octet-stream',
-      });
-      //MULTER SAVE ?
-      const formData = new FormData();
-      formData.append('file', blob);
-      const config = {
-        headers: { 'content-type': 'multipart/form-data' },
-      };
-      return axios.post('/api/savefile', formData, config);
-
-      // const element = document.createElement('a');
-      // element.href = URL.createObjectURL(blob);
-      // element.download = filename;
-      // element.click();
+      saveFromModalSrvr(filename, tag, str);
+      cancelModalSave();
     }
   };
 
@@ -1391,6 +1388,7 @@ export function DataProvider({ children }: DataProviderProps) {
         setModalSave,
         showModalSaveWindow,
         saveFromModal,
+        cancelModalSave,
       }}
     >
       {children}

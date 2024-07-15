@@ -1,0 +1,18 @@
+{
+  "videos": [
+    {
+      "name": "12 Months of the Year Song - Months of the Year Song",
+      "thumb": "months of the year.png",
+      "folder": "classvideolibrary",
+      "file": "12 Months of the Year Song - Months of the Year Song - Childrens Songs by The Learning Station.mp4",
+      "tags": ["months", "song", "BF3"]
+    },
+    {
+      "name": "3 Adorable Lion Cubs Play",
+      "thumb": "lion cubs.png",
+      "folder": "classvideolibrary",
+      "file": "3 Adorable Lion Cubs Play.mp4",
+      "tags": ["animal", "lion", "BF3"]
+    }
+  ]
+}
