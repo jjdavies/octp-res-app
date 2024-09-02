@@ -76,7 +76,7 @@ export default function Page() {
         >
           <div className={uiStyles.mainMenuItem}>
             <div className={uiStyles.mainMenuIcon}>
-              <Image src={AnimatedScene}></Image>
+              <Image src={AnimatedScene} alt="animated scene"></Image>
             </div>
             <div className={uiStyles.mainMenuHeading}>
               Animated Scenes

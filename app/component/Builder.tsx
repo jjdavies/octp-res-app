@@ -139,17 +139,19 @@ export default function Builder(props: BuilderProps) {
 
   const [valid, setValid] = useState<boolean>(false);
 
-  const changeModalSaveFilename = (e: Event) => {
-    setModalSaveFilename(e.target.value);
+  const changeModalSaveFilename = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setModalSaveFilename(e.currentTarget.value);
     //check for valid activity name
     const activities = allofflineData.activities;
     const existingAct = activities.filter((act) => {
-      if (act.name === e.target.value + '.json') {
+      if (act.name === e.currentTarget.value + '.json') {
         return true;
       }
       return false;
     });
-    if (existingAct.length > 0 || e.target.value === '') {
+    if (existingAct.length > 0 || e.currentTarget.value === '') {
       return setValid(false);
     }
     return setValid(true);
@@ -157,8 +159,10 @@ export default function Builder(props: BuilderProps) {
 
   const [modalSaveTag, setModalSaveTag] = useState<string>('');
 
-  const changeModalSaveTag = (e: Event) => {
-    setModalSaveTag(e.target.value);
+  const changeModalSaveTag = (
+    e: React.MouseEvent<HTMLInputElement>
+  ) => {
+    setModalSaveTag(e.currentTarget.value);
   };
 
   const [selectedTagOption, setSelectedTagOption] =

@@ -31,7 +31,7 @@ export default function ActionsVisual(props: ActionsVisualProps) {
     setModuleInFocus(id);
   };
 
-  const containerClick = (e) => {
+  const containerClick = (e: any) => {
     if (e.target.id === 'actionsVisualContainer') {
       setModuleInFocus('');
     }
@@ -61,6 +61,7 @@ export default function ActionsVisual(props: ActionsVisualProps) {
     >
       {combinedActions.map((act, actionIndex) => (
         <div
+          key={act.id}
           className={builderStyles.actionVisualContainer}
           style={{
             border:
@@ -78,6 +79,7 @@ export default function ActionsVisual(props: ActionsVisualProps) {
               act.triggers.length > 0 &&
               act.triggers.map((trig: Trigger, index: number) => (
                 <div
+                  key={trig.id}
                   className={builderStyles.actionVisualModule}
                   style={{ border: 'dark green' }}
                   onClick={() => triggerClick(trig.id)}
@@ -93,11 +95,13 @@ export default function ActionsVisual(props: ActionsVisualProps) {
                     >
                       Trigger {index + 1}[{trig.type}]
                     </div>
-                    {trig.type === 'ResourceTrigger' &&
-                      trig.trigger.resourceID &&
-                      trig.trigger.resourceID.substring(0, 10) +
-                        ' ... ' +
-                        trig.trigger.event}
+                    {
+                      trig.type === 'ResourceTrigger' && <></>
+                      // trig.trigger.resourceID &&
+                      // trig.trigger.resourceID.substring(0, 10) +
+                      //   ' ... ' +
+                      //   trig.trigger.event
+                    }
                   </div>
 
                   <div className={builderStyles.vConnect}></div>
@@ -170,6 +174,7 @@ export default function ActionsVisual(props: ActionsVisualProps) {
           <div className={builderStyles.actionVisualGroup}>
             {act.results.map((result: Result, index: number) => (
               <div
+                key={result.id}
                 className={builderStyles.actionVisualModule}
                 onClick={() => setModuleInFocus(result.id)}
               >
@@ -201,12 +206,16 @@ export default function ActionsVisual(props: ActionsVisualProps) {
                   >
                     [{result.type}]
                   </div>
-                  {result.type === 'Resource Animation Result' &&
-                    result.result.resourceID.substring(0, 10) +
-                      ' ... ' +
-                      result.result.property +
-                      ' --> ' +
-                      result.result.value.value}
+                  {
+                    result.type === 'Resource Animation Result' && (
+                      <></>
+                    )
+                    // result.result.resourceID.substring(0, 10) +
+                    //   ' ... ' +
+                    //   result.result.property +
+                    //   ' --> ' +
+                    //   result.result.value.value
+                  }
                 </div>
               </div>
             ))}

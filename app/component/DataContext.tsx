@@ -558,6 +558,7 @@ export function DataProvider({ children }: DataProviderProps) {
       },
       resourceSettings: {
         ...newResourceSettingsDefault,
+        animations: [],
         // startPosition: `${(rect.x - 300) * (1 / (viewScale / 100))},${
         startPosition: `${(rect.x - 300) * (viewScale / 100)},${
           // (rect.y - 225) * (1 / (viewScale / 100))
@@ -638,6 +639,7 @@ export function DataProvider({ children }: DataProviderProps) {
       },
       resourceSettings: {
         ...newResourceSettingsDefault,
+        animations: [],
         startPosition: `${(rect.x - 300) * (1 / (viewScale / 100))},${
           (rect.y - 225) * (1 / (viewScale / 100))
         }`,

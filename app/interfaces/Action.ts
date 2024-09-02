@@ -1,5 +1,5 @@
-import Condition from './Condition';
-import Result from './Result';
+import Condition from './actionSystem/Condition';
+import Result from './actionSystem/Result';
 
 import Trigger from './Trigger';
 

@@ -231,7 +231,7 @@ const init = () => {
 // eslint-disable-next-line react/display-name
 const BF3School = React.memo(() => {
   const [zoomStatus, setZoomStatus] = useState('out');
-  const [soundsStarted, setSoundsStarted] = useState<boolean>(false);
+  const [soundsStarted, setSoundsStarted] = useState(false);
   const [schoolSound, schoolsound] = useSound(
     '/sounds/schoolambience.mp3',
     { volume: 0.8 }
@@ -263,7 +263,11 @@ const BF3School = React.memo(() => {
     };
   }, []);
   const setZoomMusic = (e) => {
+    if (!e || !e.currentTarget) return;
+    const element = e.target
+    const elementID = element.id;
     if (!soundsStarted) {
+      console.log('sounds not started')
       schoolSound();
       pianoSound();
       classroomSound();
@@ -271,57 +275,104 @@ const BF3School = React.memo(() => {
       playgroundSound();
       setSoundsStarted(true);
     }
-    pianosound.sound.fade(1, 0, 0);
-    classroomsound.sound.fade(1, 0, 0);
-    playgroundsound.sound.fade(1, 0, 0);
-    officesound.sound.fade(1, 0, 0);
-    if (e.target.id === 'musicClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      pianosound.sound.fade(0, 1, 50);
+    if (pianosound && pianosound.sound) {
+      pianosound.sound.fade(1, 0, 0);
+    }
+    if (classroomsound && classroomsound.sound) {
+      classroomsound.sound.fade(1, 0, 0);
+    }
+    if (playgroundsound && playgroundsound.sound) {
+      playgroundsound.sound.fade(1, 0, 0);
+    }
+    if (officesound && officesound.sound) {
+      officesound.sound.fade(1, 0, 0);
+    }
+    if (elementID === 'musicClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+
+      if (pianosound && pianosound.sound) {
+        pianosound.sound.fade(0, 1, 50);
+      }
+
       // pianoSound();
       return setZoomStatus('music');
     }
-    if (e.target.id === 'officeClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      officesound.sound.fade(0, 1, 50);
+    if (elementID === 'officeClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+      if (officesound && officesound.sound) {
+        officesound.sound.fade(0, 1, 50);
+      }
       return setZoomStatus('office');
     }
-    if (e.target.id === 'gymClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      playgroundsound.sound.fade(0, 1, 50);
+    if (elementID === 'gymClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+      if (playgroundsound && playgroundsound.sound) {
+        playgroundsound.sound.fade(0, 1, 50);
+      }
       return setZoomStatus('gym');
     }
-    if (e.target.id === 'gateClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
+    if (elementID === 'gateClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
       return setZoomStatus('gate');
     }
-    if (e.target.id === 'englishClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      classroomsound.sound.fade(0, 1, 50);
+    if (elementID === 'englishClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+      if (classroomsound && classroomsound.sound) {
+        classroomsound.sound.fade(0, 1, 50);
+      }
       return setZoomStatus('english');
     }
     if (zoomStatus === 'music') {
-      pianosound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (pianosound && pianosound.sound) {
+        pianosound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfrommusic');
     }
     if (zoomStatus === 'office') {
-      officesound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (officesound && officesound.sound) {
+        officesound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfromoffice');
     }
     if (zoomStatus === 'english') {
-      classroomsound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (classroomsound && classroomsound.sound) {
+        classroomsound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfromenglish');
     }
     if (zoomStatus === 'gym') {
-      playgroundsound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (playgroundsound && playgroundsound.sound) {
+        playgroundsound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfromgym');
     }
     if (zoomStatus === 'gate') {
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
+
       return setZoomStatus('outfromgate');
     }
   };

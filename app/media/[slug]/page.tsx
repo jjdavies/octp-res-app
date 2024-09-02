@@ -1,11 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Link from 'next/link';
-import library from '../../videofiles.json';
+import library from '../../mediafiles.json';
 import Image from 'next/image';
 import NavArrow from '../../img/buttons/navArrow.svg';
 import AddButton from '../../img/buttons/add.svg';
-import VideoStyles from '../../styles/Video.module.css';
+import multimediaStyles from '../../styles/Multimedia.module.css';
 import { saveJson } from '../savefile';
 
 interface PageProps {
@@ -14,23 +14,31 @@ interface PageProps {
 
 export default function Page(props: PageProps) {
   const slug = props.params.slug;
-  const videos = library.videofiles;
+  const media = library.mediafiles;
   console.log(decodeURIComponent(slug));
-  console.log(videos[0].file);
+  console.log(media[0].file);
   const [data, setData] = useState(
-    videos.filter(
-      (vid) => vid.file.split('.mp4')[0] === decodeURIComponent(slug)
-    )[0]
+    // media.filter(
+    //   (media) => media.file.split('.mp4')[0] === decodeURIComponent(slug)
+    // )[0]
+    media.filter((media) => {
+      let mediaExt = '.mp4';
+      if (media.type === 'audio') mediaExt = '.mp3';
+      if (media.type === 'image') mediaExt = '.jpg';
+      if (media.file.split(mediaExt)[0] === decodeURIComponent(slug))
+        return true;
+      return false;
+    })[0]
   );
   const allTags = library.tags.filter(
     (tag) => !data.tags.includes(tag)
   );
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const [newTagValue, setNewTagValue] = useState('');
   const [newTags, setNewTags] = useState<string[]>([]);
 
-  const newTagValueChanged = (e) => {
+  const newTagValueChanged = (e: ChangeEvent<HTMLSelectElement>) => {
     setNewTagValue(e.target.value);
   };
 
@@ -48,7 +56,7 @@ export default function Page(props: PageProps) {
 
   const cancelTags = () => {
     setData(
-      videos.filter(
+      media.filter(
         (vid) =>
           vid.file.split('.mp4')[0] === decodeURIComponent(slug)
       )[0]
@@ -72,7 +80,7 @@ export default function Page(props: PageProps) {
   const saveTags = async () => {
     const newJson = {
       tags: [...library.tags, ...newTags],
-      videofiles: library.videofiles.map((vid) => {
+      videofiles: library.mediafiles.map((vid) => {
         if (vid.file.split('.mp4')[0] === decodeURIComponent(slug)) {
           return { ...vid, tags: data.tags };
         }
@@ -84,7 +92,7 @@ export default function Page(props: PageProps) {
     setNewTags([]);
   };
 
-  const newTagEnter = (e) => {
+  const newTagEnter = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       addNewTag(newTagValue);
     }
@@ -129,42 +137,76 @@ export default function Page(props: PageProps) {
           alt="add"
         />
       </div>
-      <video
-        src={`/classvideolibrary/${slug}.mp4`}
-        style={{
-          height: '90vh',
-          marginTop: '2.5%',
-          filter: 'drop-shadow(1,1,1,white)',
-        }}
-        autoPlay
-        controls={true}
-      />
+      {/* media */}
+      {data && (
+        <>
+          {data.type === 'video' && (
+            <video
+              src={`/classvideolibrary/${slug}.mp4`}
+              style={{
+                height: '90vh',
+                marginTop: '2.5%',
+                filter: 'drop-shadow(1,1,1,white)',
+              }}
+              autoPlay
+              controls={true}
+            />
+          )}
+          {data.type === 'audio' && (
+            <audio
+              src={`/classvideolibrary/audio/${slug}.mp3`}
+              style={{
+                height: '90vh',
+                marginTop: '2.5%',
+                filter: 'drop-shadow(1,1,1,white)',
+              }}
+              autoPlay
+              controls={true}
+            />
+          )}
+          {data.type === 'image' && (
+            <>
+              {data.size && (
+                <div className={multimediaStyles.imageContainer}>
+                  <Image
+                    className={multimediaStyles.mediaImage}
+                    src={`/classvideolibrary/image/${slug}.jpg`}
+                    alt="image"
+                    width={data.size.w}
+                    height={data.size.h}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </>
+      )}
       {modal && (
-        <div className={VideoStyles.modalTagContainer}>
-          <div className={VideoStyles.modalTags}>
+        <div className={multimediaStyles.modalTagContainer}>
+          <div className={multimediaStyles.modalTags}>
             <h1>Tags</h1>
             New Tag:{' '}
             <div style={{ display: 'flex' }}>
               <input
-                className={VideoStyles.tagInput}
+                className={multimediaStyles.tagInput}
                 value={newTagValue}
-                onChange={newTagValueChanged}
-                onKeyDown={newTagEnter}
+                onChange={() => newTagValueChanged}
+                onKeyDown={() => newTagEnter}
               ></input>
               <button
-                className={VideoStyles.newTagButton}
+                className={multimediaStyles.newTagButton}
                 onClick={() => addNewTag(newTagValue)}
               >
                 Add
               </button>
             </div>
-            <div className={VideoStyles.tagContainer}>
+            <div className={multimediaStyles.tagContainer}>
               {data.tags.sort().map((tag) => (
-                <div className={VideoStyles.tagPill} key={tag}>
+                <div className={multimediaStyles.tagPill} key={tag}>
                   {tag}
                   <span style={{ padding: '0 5px' }}>|</span>
                   <div
-                    className={VideoStyles.deleteTag}
+                    className={multimediaStyles.deleteTag}
                     onClick={() => deleteTag(tag)}
                   >
                     &#x274c;
@@ -183,7 +225,7 @@ export default function Page(props: PageProps) {
               }}
             ></div>
             <div
-              className={VideoStyles.tagContainer}
+              className={multimediaStyles.tagContainer}
               style={
                 {
                   // position: 'relative',
@@ -193,7 +235,7 @@ export default function Page(props: PageProps) {
             >
               {allTags.sort().map((tag) => (
                 <div
-                  className={VideoStyles.tagPill}
+                  className={multimediaStyles.tagPill}
                   key={tag}
                   onClick={() => addTag(tag)}
                 >
@@ -201,15 +243,15 @@ export default function Page(props: PageProps) {
                 </div>
               ))}
             </div>
-            <div className={VideoStyles.modalButtons}>
+            <div className={multimediaStyles.modalButtons}>
               <div
-                className={VideoStyles.modalCancel}
+                className={multimediaStyles.modalCancel}
                 onClick={cancelTags}
               >
                 Cancel
               </div>
               <div
-                className={VideoStyles.modalSave}
+                className={multimediaStyles.modalSave}
                 onClick={saveTags}
               >
                 Save

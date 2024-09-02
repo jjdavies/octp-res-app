@@ -68,12 +68,16 @@ export default function OptionsButton(props: OptionsButtonProps) {
       {optionsSelected && selectedImage !== '' && (
         <div className={builderStyles.dropDown}>
           {imageOptions.map((group) => (
-            <div className={builderStyles.dropDownGroup}>
+            <div
+              className={builderStyles.dropDownGroup}
+              key={group.dataKey}
+            >
               <div className={builderStyles.dropDownGroupName}>
                 {group.group}
               </div>
               {group.options.map((option) => (
                 <div
+                  key={option.name}
                   className={builderStyles.dropDownOption}
                   onClick={() =>
                     makeOptionChange(group.dataKey, option.value)
@@ -81,10 +85,10 @@ export default function OptionsButton(props: OptionsButtonProps) {
                 >
                   {option.name}
                   <div>
-                    {selectedImageResSettings?.[group.dataKey] ===
+                    {/* {selectedImageResSettings?.[group.dataKey] ===
                     option.value
                       ? '✓'
-                      : ''}
+                      : ''} */}
                   </div>
                 </div>
               ))}

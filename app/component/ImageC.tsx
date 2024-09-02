@@ -173,6 +173,8 @@ export default function ImageC(props: ImageCProps) {
               ) => {
                 props.clickHandler(e, id);
               }}
+              width={0}
+              height={0}
             />
           )}
           {resourceType === 'image' && (

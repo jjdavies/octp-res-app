@@ -7,7 +7,11 @@ import NavArrow from '../../img/buttons/navArrow.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function SlugScene(props) {
+interface SlugSceneProps {
+  params: any;
+}
+
+export default function SlugScene(props: SlugSceneProps) {
   const slug = props.params.slug;
   return (
     <div>

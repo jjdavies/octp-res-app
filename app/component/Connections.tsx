@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import Activity from '../interfaces/Activity';
+// import Activity from '../interfaces/Activity';
 import ActivityStage from '../interfaces/ActivityStage';
 import DataContext from './DataContext';
 

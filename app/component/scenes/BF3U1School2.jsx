@@ -1,6 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Draggable, { DraggableEventHandler } from 'react-draggable';
+import Draggable, {
+  DraggableData,
+  DraggableEvent,
+} from 'react-draggable';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -324,16 +327,16 @@ const init = () => {
   });
 };
 
-interface DraggableWorkerProps {
-  worker: any;
-  index: number;
-  onStop: Function;
-  workersPresent: Boolean[];
-}
+// interface DraggableWorkerProps {
+//   worker: any;
+//   index: number;
+//   onStop: Function;
+//   workersPresent: Boolean[];
+// }
 
-const DraggableWorker = (props: DraggableWorkerProps) => {
-  const [workerX, setWorkerX] = useState<number>(0);
-  const [workerY, setWorkerY] = useState<number>(0);
+const DraggableWorker = (props) => {
+  const [workerX, setWorkerX] = useState(0);
+  const [workerY, setWorkerY] = useState(0);
 
   useEffect(() => {
     console.log('reset');
@@ -372,22 +375,22 @@ const DraggableWorker = (props: DraggableWorkerProps) => {
 // eslint-disable-next-line react/display-name
 const BF3School = React.memo(() => {
   const [zoomStatus, setZoomStatus] = useState('out');
-  const [soundsStarted, setSoundsStarted] = useState<boolean>(false);
+  const [soundsStarted, setSoundsStarted] = useState(false);
   const [englishTeacherPlaced, setEnglishTeacherPlaced] =
-    useState<boolean>(false);
+    useState(false);
   const [gymTeacherPlaced, setGymTeacherPlaced] =
-    useState<boolean>(false);
-  const [janitorPlaced, setJanitorPlaced] = useState<boolean>(false);
+    useState(false);
+  const [janitorPlaced, setJanitorPlaced] = useState(false);
   const [gatekeeperPlaced, setGatekeeperPlaced] =
-    useState<boolean>(false);
+    useState(false);
   const [principalPlaced, setPrincipalPlaced] =
-    useState<boolean>(false);
+    useState(false);
   const [secretaryPlaced, setSecretaryPlaced] =
-    useState<boolean>(false);
+    useState(false);
   const [busDriverPlaced, setBusDriverPlaced] =
-    useState<boolean>(false);
+    useState(false);
   const [musicTeacherPlaced, setMusicTeacherPlaced] =
-    useState<boolean>(false);
+    useState(false);
   const [schoolSound, schoolsound] = useSound(
     '/sounds/schoolambience.mp3',
     { volume: 0.6 }
@@ -517,7 +520,7 @@ const BF3School = React.memo(() => {
     true,
   ]);
   const [resetAllWorkers, setResetAllWorkers] =
-    useState<boolean>(false);
+    useState(false);
 
   useEffect(() => {
     var player = init();
@@ -532,7 +535,10 @@ const BF3School = React.memo(() => {
 
   const setUpWorkerTargets = () => {
     const player = document.getElementById('sceneoverlay');
-    const playerRect = player?.getBoundingClientRect();
+    let playerRect = new DOMRect();
+    playerRect = player
+      ? player.getBoundingClientRect()
+      : new DOMRect();
     console.log(playerRect);
     const playerX = playerRect.x;
     const playerY = playerRect.y;
@@ -553,7 +559,11 @@ const BF3School = React.memo(() => {
   };
 
   const setZoomMusic = (e) => {
+    if (!e || !e.currentTarget) return;
+    const element = e.target
+    const elementID = element.id;
     if (!soundsStarted) {
+      console.log('sounds not started')
       schoolSound();
       pianoSound();
       classroomSound();
@@ -561,64 +571,114 @@ const BF3School = React.memo(() => {
       playgroundSound();
       setSoundsStarted(true);
     }
-    pianosound.sound.fade(1, 0, 0);
-    classroomsound.sound.fade(1, 0, 0);
-    playgroundsound.sound.fade(1, 0, 0);
-    officesound.sound.fade(1, 0, 0);
-    if (e.target.id === 'musicClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      pianosound.sound.fade(0, 1, 50);
+    if (pianosound && pianosound.sound) {
+      pianosound.sound.fade(1, 0, 0);
+    }
+    if (classroomsound && classroomsound.sound) {
+      classroomsound.sound.fade(1, 0, 0);
+    }
+    if (playgroundsound && playgroundsound.sound) {
+      playgroundsound.sound.fade(1, 0, 0);
+    }
+    if (officesound && officesound.sound) {
+      officesound.sound.fade(1, 0, 0);
+    }
+    if (elementID === 'musicClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+
+      if (pianosound && pianosound.sound) {
+        pianosound.sound.fade(0, 1, 50);
+      }
+
       // pianoSound();
       return setZoomStatus('music');
     }
-    if (e.target.id === 'officeClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      officesound.sound.fade(0, 1, 50);
+    if (elementID === 'officeClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+      if (officesound && officesound.sound) {
+        officesound.sound.fade(0, 1, 50);
+      }
       return setZoomStatus('office');
     }
-    if (e.target.id === 'gymClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      playgroundsound.sound.fade(0, 1, 50);
+    if (elementID === 'gymClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+      if (playgroundsound && playgroundsound.sound) {
+        playgroundsound.sound.fade(0, 1, 50);
+      }
       return setZoomStatus('gym');
     }
-    if (e.target.id === 'gateClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
+    if (elementID === 'gateClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
       return setZoomStatus('gate');
     }
-    if (e.target.id === 'englishClick') {
-      schoolsound.sound.fade(1, 0.2, 200);
-      classroomsound.sound.fade(0, 1, 50);
+    if (elementID === 'englishClick') {
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(1, 0.2, 200);
+      }
+      if (classroomsound && classroomsound.sound) {
+        classroomsound.sound.fade(0, 1, 50);
+      }
       return setZoomStatus('english');
     }
     if (zoomStatus === 'music') {
-      pianosound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (pianosound && pianosound.sound) {
+        pianosound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfrommusic');
     }
     if (zoomStatus === 'office') {
-      officesound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (officesound && officesound.sound) {
+        officesound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfromoffice');
     }
     if (zoomStatus === 'english') {
-      classroomsound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (classroomsound && classroomsound.sound) {
+        classroomsound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfromenglish');
     }
     if (zoomStatus === 'gym') {
-      playgroundsound.sound.fade(1, 0, 500);
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (playgroundsound && playgroundsound.sound) {
+        playgroundsound.sound.fade(1, 0, 500);
+      }
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
       return setZoomStatus('outfromgym');
     }
     if (zoomStatus === 'gate') {
-      schoolsound.sound.fade(0.2, 1, 200);
+      if (schoolsound && schoolsound.sound) {
+        schoolsound.sound.fade(0.2, 1, 200);
+      }
+
       return setZoomStatus('outfromgate');
     }
   };
-  const handleWorkerStop = (e: MouseEvent, ui) => {
+  const handleWorkerStop = (e, ui) => {
     const player = document.getElementById('sceneoverlay');
-    const playerRect = player?.getBoundingClientRect();
-    console.log(playerRect);
+    let playerRect = new DOMRect();
+    playerRect = player
+      ? player.getBoundingClientRect()
+      : new DOMRect();
+
     const playerX = playerRect.x;
     const playerY = playerRect.y;
     console.log(ui.node.id, e.target.id);

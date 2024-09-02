@@ -18,7 +18,7 @@ export default function ActionsPaneButton(
   return (
     <div
       className={builderStyles.button}
-      onClick={props.buttonHandler}
+      onClick={() => props.buttonHandler}
     >
       <Image
         className={builderStyles.buttonImage}

@@ -1,7 +1,7 @@
 'use client';
-import React, { useState } from 'react';
-import library from '../videofiles.json';
-import videoStyles from '../styles/Video.module.css';
+import React, { ChangeEvent, useState } from 'react';
+import library from '../mediafiles.json';
+import multimediaStyles from '../styles/Multimedia.module.css';
 import uiStyles from '../styles/UI.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,9 +15,12 @@ interface VideoLinkProps {
   tags: string[];
   thumb: string;
   selected: string[];
+  typeFilter: string;
+  type: string;
+  size: { w: number; h: number };
 }
 
-const VideoLink = (props: VideoLinkProps) => {
+const MediaLink = (props: VideoLinkProps) => {
   let show = true;
   props.selected.map((tag) => {
     if (props.tags.includes(tag) === false) {
@@ -28,15 +31,34 @@ const VideoLink = (props: VideoLinkProps) => {
   console.log(props.selected, props.tags.length);
   if (props.selected[0] === 'UNTAGGED' && props.tags.length === 0)
     show = true;
+  if (props.typeFilter === 'Video' && props.type !== 'video')
+    show = false;
+  if (props.typeFilter === 'Audio' && props.type !== 'audio')
+    show = false;
+  if (props.typeFilter === 'Image' && props.type !== 'image')
+    show = false;
   if (!show) return;
+  let mediaExt = '.mp4';
+  if (props.type === 'audio') mediaExt = '.mp3';
+  if (props.type === 'image') mediaExt = '.jpg';
   return (
-    <Link href={'/media/' + props.file.split('.mp4')[0]}>
-      <div className={uiStyles.activityItem}>
-        <span style={{ width: '192px', overflow: 'hidden' }}>
+    <Link href={'/media/' + props.file.split(mediaExt)[0]}>
+      <div className={multimediaStyles.activityItem}>
+        <div
+          style={{
+            width: '192px',
+            overflow: 'clip',
+            background: 'rgba(255, 255, 255, 0.6)',
+            zIndex: 999,
+          }}
+        >
           {props.name}
-        </span>
+        </div>
         <Image
+          className={multimediaStyles.imageThumb}
           src={'/classvideolibrary/thumbs/' + props.thumb}
+          // width={props.size.w > 0 ? props.size.w : 192}
+          // height={props.size.h > 0 ? props.size.h : 108}
           width={192}
           height={108}
           alt="thumb"
@@ -65,7 +87,7 @@ const FilteredTag = (props: FilteredTagProps) => {
   if (props.selected.includes(props.tag))
     return (
       <div
-        className={videoStyles.tagPillHighlighted}
+        className={multimediaStyles.tagPillHighlighted}
         key={props.tag}
         onClick={() => props.onClick()}
       >
@@ -74,7 +96,7 @@ const FilteredTag = (props: FilteredTagProps) => {
     );
   return (
     <div
-      className={videoStyles.tagPill}
+      className={multimediaStyles.tagPill}
       key={props.tag}
       onClick={() => props.onClick()}
     >
@@ -84,35 +106,46 @@ const FilteredTag = (props: FilteredTagProps) => {
 };
 
 export default function Page() {
-  const videos = library.videofiles;
-  const [currentVideoFilters, setCurrentVideoFilters] = useState<
+  const media = library.mediafiles;
+  const [currentMediaFilters, setCurrentMediaFilters] = useState<
     string[]
   >([]);
 
   const selectTag = (tag: string) => {
-    if (currentVideoFilters.includes(tag)) {
-      setCurrentVideoFilters(
-        currentVideoFilters.filter((tg) => tg !== tag)
+    if (currentMediaFilters.includes(tag)) {
+      setCurrentMediaFilters(
+        currentMediaFilters.filter((tg) => tg !== tag)
       );
       return;
     }
-    setCurrentVideoFilters([...currentVideoFilters, tag]);
+    setCurrentMediaFilters([...currentMediaFilters, tag]);
   };
 
   const [inputFilter, setInputFilter] = useState<string>('');
-  const changeInputFilter = (e) => {
+  const changeInputFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     setInputFilter(e.target.value);
   };
 
+  const [inputTypeFilter, setInputTypeFilter] =
+    useState<string>('All Media');
+  const changeInputTypeFilter = (
+    e: ChangeEvent<HTMLSelectElement>
+  ) => {
+    console.log(e.target.value);
+    setInputTypeFilter(e.target.value);
+  };
+
+  const filterTypeOptions = ['All Media', 'Video', 'Audio', 'Image'];
+
   return (
-    <div className={videoStyles.main}>
-      <div className={videoStyles.filterPane}>
+    <div className={multimediaStyles.main}>
+      <div className={multimediaStyles.filterPane}>
         <div>
           <Link href="/">
             <Image
               src={NavArrow}
-              width={200}
-              height={200}
+              width={100}
+              height={100}
               style={{
                 position: 'relative',
                 top: 0,
@@ -124,43 +157,63 @@ export default function Page() {
             />
           </Link>
         </div>
-        <h1>Filters:</h1>
+        <h1>Filter By Type:</h1>
+        <select
+          className={multimediaStyles.filterTypeDropDown}
+          onChange={changeInputTypeFilter}
+        >
+          {filterTypeOptions.map((option) => (
+            <option
+              key={option}
+              className={multimediaStyles.filterTypeOption}
+            >
+              {inputTypeFilter === option && <>{'\u2714'}</>} {option}
+            </option>
+          ))}
+        </select>
+        <h1>Filter By Tag:</h1>
         <input
-          className={videoStyles.filterInput}
+          className={multimediaStyles.filterInput}
           value={inputFilter}
-          onChange={changeInputFilter}
+          onChange={() => changeInputFilter}
         ></input>
-        <div className={videoStyles.tagContainer}>
+        <div className={multimediaStyles.tagContainer}>
           {library.tags.sort().map((tag) => (
             <FilteredTag
               key={tag}
               tag={tag}
-              selected={currentVideoFilters}
+              selected={currentMediaFilters}
               onClick={() => selectTag(tag)}
               inputFilter={inputFilter}
             />
           ))}
           <FilteredTag
             tag={'UNTAGGED'}
-            selected={currentVideoFilters}
+            selected={currentMediaFilters}
             onClick={() => selectTag('UNTAGGED')}
             inputFilter={inputFilter}
           />
         </div>
       </div>
-      <div className={videoStyles.videoList}>
-        {videos.map((vid) => (
-          <VideoLink
-            key={vid.name}
-            name={vid.name}
-            // folder={vid.folder}
-            file={vid.file}
-            tags={vid.tags}
-            // key={vid.name}
-            thumb={vid.thumb}
-            selected={currentVideoFilters}
-          />
-        ))}
+      <div className={multimediaStyles.contentPane}>
+        <h1 style={{ color: 'black' }}>Multimedia</h1>
+        <div className={multimediaStyles.videoList}>
+          {media.map((vid) => (
+            <MediaLink
+              key={vid.name}
+              name={vid.name}
+              // folder={vid.folder}
+              file={vid.file}
+              tags={vid.tags}
+              // key={vid.name}
+              thumb={vid.thumb}
+              selected={currentMediaFilters}
+              typeFilter={inputTypeFilter}
+              type={vid.type}
+              size={vid.size ? vid.size : { w: 0, h: 0 }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

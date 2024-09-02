@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import allofflineData from '../activityfiles.json';
 import uiStyles from '../styles/UI.module.css';
 import Link from 'next/link';
@@ -15,7 +15,7 @@ interface ActivityLink {
   showErrorFiles: boolean;
 }
 
-const ActivityLink = (props: ActivityRecord) => {
+const ActivityLink = (props: ActivityLink) => {
   const { courseFilter, activity, showErrorFiles } = props;
   console.log(props);
   let showActivity = false;
@@ -58,7 +58,7 @@ export default function Page() {
   // const [filterItems, setFilterItems] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('-');
 
-  const courseSelected = (e) => {
+  const courseSelected = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCourse(e.target.value);
   };
 
@@ -79,6 +79,7 @@ export default function Page() {
               left: 0,
               transform: 'rotate(180deg)',
             }}
+            alt="navigation arrow"
           />
         </Link>
         {/* <div className={uiStyles.filterItem}>Filter:</div> */}

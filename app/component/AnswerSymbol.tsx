@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Image from 'next/image';
 import ActivityResource from '../interfaces/ActivityResource';
-import DataContext from './DataContext';
+import DataContext from './player/DataContext';
 import MatchAttempt from '../interfaces/MatchAttempt';
 
 import builderStyles from '../styles/Builder.module.css';

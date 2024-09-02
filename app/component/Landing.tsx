@@ -7,8 +7,12 @@ import playButton from '../img/buttons/play-button.svg';
 import editButton from '../img/buttons/edit-button.svg';
 import Link from 'next/link';
 
+interface Activity {
+  name: string;
+}
+
 interface LandingProps {
-  availableActivities: [];
+  availableActivities: Activity[];
   sessionModeSelect: Function;
 }
 
@@ -101,6 +105,7 @@ export default function Landing(props: LandingProps) {
             <div className={builderStyles.landingActivityList}>
               {availableActivities.map((activity) => (
                 <Link
+                  key={activity.name}
                   href={
                     landingActivitySelectionMode === 'edit'
                       ? 'local/builder/' + activity.name

@@ -16,7 +16,7 @@ export default function Thumb(props: ThumbProps) {
   const [startPos, setStartPos] = useState<Object>({});
   const [thumbStatus, setThumbStatus] = useState<string>('loaded');
 
-  const imgRef = useRef();
+  const imgRef = useRef(null);
 
   const startDrag: DraggableEventHandler = (e, ui) => {
     // console.log(thumbRect);
@@ -26,8 +26,10 @@ export default function Thumb(props: ThumbProps) {
     // const thumb = e.target as Element;
     const thumb = imgRef.current;
     console.log(thumb);
-    if (thumb != null)
-      props.thumbDrop(thumb.getBoundingClientRect(), props.src);
+    if (thumb != null) {
+      const thumbEl: HTMLElement = thumb;
+      props.thumbDrop(thumbEl.getBoundingClientRect(), props.src);
+    }
   };
 
   return (
@@ -37,7 +39,7 @@ export default function Thumb(props: ThumbProps) {
       position={{ x: 0, y: 0 }}
     >
       <div>
-        <img
+        <Image
           ref={imgRef}
           className={builderStyles.sidePaneThumb}
           src={props.src}
@@ -56,6 +58,7 @@ export default function Thumb(props: ThumbProps) {
               top: '-50%',
             }}
             draggable={false}
+            alt="pending wheel"
           />
         )}
         {/* {thumbStatus==='uploaded' &&

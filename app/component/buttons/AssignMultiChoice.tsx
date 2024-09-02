@@ -19,7 +19,7 @@ export default function AssignMultiChoice(
   return (
     <div
       className={builderStyles.button}
-      onClick={props.buttonHandler}
+      onClick={() => props.buttonHandler}
     >
       <Image
         className={builderStyles.buttonImage}

@@ -95,12 +95,16 @@ export default function Navigation(props: NavigationProps) {
           {addStageSelected && (
             <div>
               {imageOptions.map((group) => (
-                <div className={builderStyles.dropDownGroup}>
+                <div
+                  key={group.dataKey}
+                  className={builderStyles.dropDownGroup}
+                >
                   <div className={builderStyles.dropDownGroupName}>
                     {group.group}
                   </div>
                   {group.options.map((option) => (
                     <div
+                      key={option.name}
                       className={builderStyles.dropDownOption}
                       onClick={() => addNewStage(option.value)}
                     >

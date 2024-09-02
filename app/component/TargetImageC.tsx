@@ -1,4 +1,9 @@
-import React, { DetailedHTMLProps, useEffect, useState } from 'react';
+import React, {
+  CSSProperties,
+  DetailedHTMLProps,
+  useEffect,
+  useState,
+} from 'react';
 import Image from 'next/image';
 import Draggable, { DraggableEventHandler } from 'react-draggable';
 
@@ -17,7 +22,7 @@ interface ImageCProps {
   y: number;
   zOrder: number;
   locked: boolean;
-  connectionNode: string;
+  // connectionNode: string;
   draggable: boolean;
 }
 
@@ -62,7 +67,7 @@ export default function TargetC(props: ImageCProps) {
     setHeight(props.height);
   }, [props.x, props.y]);
 
-  const divStyle = {
+  const divStyle: CSSProperties = {
     width: width * (props.viewScale / 100),
     height: height * (props.viewScale / 100),
     margin: '0',

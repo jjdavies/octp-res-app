@@ -9,9 +9,9 @@ import Draggable, { DraggableEventHandler } from 'react-draggable';
 import Image from 'next/image';
 
 //type interfaces
-import Activity from '../interfaces/Activity';
-import ImageEl from '../interfaces/ImageEl';
-import ImageRef from '../interfaces/ImageRef';
+// import Activity from '../interfaces/Activity';
+// import ImageEl from '../interfaces/ImageEl';
+// import ImageRef from '../interfaces/ImageRef';
 
 //components
 import ImageC from './ImageC';

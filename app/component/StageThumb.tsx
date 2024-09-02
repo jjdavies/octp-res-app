@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import Image from 'next/image';
-import Draggable from 'react-draggable';
+import Draggable, {
+  DraggableEvent,
+  DraggableData,
+} from 'react-draggable';
 import builderStyles from '../styles/Builder.module.css';
 import ActivityStage from '../interfaces/ActivityStage';
 import DataContext from './DataContext';
@@ -19,7 +22,7 @@ export default function StageThumb(props: StageThumbProps) {
   const stageClick = () => {
     setStage(props.stage.stageID);
   };
-  const stageDown = (e, ui) => {
+  const stageDown = (e: DraggableEvent, ui: DraggableData) => {
     setOriginalPos({ x: ui.x, y: ui.y });
     setDragging(true);
   };
@@ -27,7 +30,7 @@ export default function StageThumb(props: StageThumbProps) {
     setDragging(false);
     setCurrentPos({ x: originalPos.x, y: originalPos.y });
   };
-  const stageDrag = (e, ui) => {
+  const stageDrag = (e: DraggableEvent, ui: DraggableData) => {
     console.log({
       x: originalPos.x + ui.deltaX,
       y: currentPos.y + ui.deltaY,

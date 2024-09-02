@@ -104,7 +104,7 @@ const SetupResourceTrigger = (props: FormModuleProps) => {
     setSelectedResource(props.res.resourceID);
   };
 
-  const changeTriggerTypeSelection = (e) => {
+  const changeTriggerTypeSelection = (e: any) => {
     setSelectedTriggerType(e.target.value);
   };
   return (
@@ -117,6 +117,7 @@ const SetupResourceTrigger = (props: FormModuleProps) => {
           {resources &&
             resources.map((res) => (
               <ResourceThumb
+                key={res.resourceID}
                 onClick={resourceSelectHandler}
                 selectedResource={selectedResource}
                 res={res}
@@ -133,8 +134,9 @@ const SetupResourceTrigger = (props: FormModuleProps) => {
             onChange={(e) => changeTriggerTypeSelection(e)}
           >
             <option>None</option>
-            {resourceTriggerTypeOptions.map((typ) => (
+            {resourceTriggerTypeOptions.map((typ, index) => (
               <option
+                key={index}
                 className={
                   builderStyles.resourceTriggerTypeSelectOption
                 }
@@ -244,43 +246,43 @@ const SetupResourceAnimationResult = (props: FormModuleProps) => {
     setSelectedTriggerEventResource,
   ] = useState<Trigger>();
 
-  useEffect(() => {
-    const validTriggers = props.actionTriggerData
-      ? props.actionTriggerData.filter(
-          (trig) => validTypes.indexOf(trig.trigger.event) !== -1
-        )
-      : [];
-    console.log('valid triggers', validTriggers);
-    const validTriggerTypes: String[] = validTriggers.map((trig) => {
-      return trig.trigger.event;
-    });
-    console.log('validtriggertypes', validTriggerTypes);
-    //valid trigger types that have multiple triggers of that type
-    const nonUniqueValidTriggerTypes = validTriggerTypes.map(
-      (trigtype, index) => {
-        if (validTriggerTypes.indexOf(trigtype) !== index) {
-          //not first instance of that trigger type
-          return trigtype;
-        }
-      }
-    );
-    console.log('nonunique', nonUniqueValidTriggerTypes);
-    //finalize array of valid unique triggers
-    setValidUniqueTriggers(
-      validTriggers.filter(
-        (trig) =>
-          nonUniqueValidTriggerTypes.indexOf(trig.trigger.event) ===
-          -1
-      )
-    );
-    console.log(resources, validUniqueTriggers);
-    // const validUniqueTriggers =
-    //   validTriggers.length === 0
-    //     ? []
-    //     : validTriggers.filter(
-    //         (trig) => nonUniqueValidTriggerTypes.indexOf(trig.type) === -1,
-    //       );
-  }, [props.actionTriggerData]);
+  // useEffect(() => {
+  //   const validTriggers = props.actionTriggerData
+  //     ? props.actionTriggerData.filter(
+  //         (trig) => validTypes.indexOf(trig.trigger.event) !== -1
+  //       )
+  //     : [];
+  //   console.log('valid triggers', validTriggers);
+  //   const validTriggerTypes: String[] = validTriggers.map((trig) => {
+  //     return trig.trigger.event;
+  //   });
+  //   console.log('validtriggertypes', validTriggerTypes);
+  //   //valid trigger types that have multiple triggers of that type
+  //   const nonUniqueValidTriggerTypes = validTriggerTypes.map(
+  //     (trigtype, index) => {
+  //       if (validTriggerTypes.indexOf(trigtype) !== index) {
+  //         //not first instance of that trigger type
+  //         return trigtype;
+  //       }
+  //     }
+  //   );
+  //   console.log('nonunique', nonUniqueValidTriggerTypes);
+  //   //finalize array of valid unique triggers
+  //   setValidUniqueTriggers(
+  //     validTriggers.filter(
+  //       (trig) =>
+  //         nonUniqueValidTriggerTypes.indexOf(trig.trigger.event) ===
+  //         -1
+  //     )
+  //   );
+  //   console.log(resources, validUniqueTriggers);
+  //   // const validUniqueTriggers =
+  //   //   validTriggers.length === 0
+  //   //     ? []
+  //   //     : validTriggers.filter(
+  //   //         (trig) => nonUniqueValidTriggerTypes.indexOf(trig.type) === -1,
+  //   //       );
+  // }, [props.actionTriggerData]);
 
   const resourceSelectHandler = (props: {
     res: ActivityResource;
@@ -295,12 +297,12 @@ const SetupResourceAnimationResult = (props: FormModuleProps) => {
     setSelectedResource(props.res.resourceID);
   };
 
-  const changePropertySelection = (e) => {
+  const changePropertySelection = (e: any) => {
     setSelectedProperty(e.target.value);
     // validate(actualValue, e.target.value);
   };
 
-  const changeValueType = (e) => {
+  const changeValueType = (e: any) => {
     setSelectedValueType(e.target.value);
   };
 
@@ -320,7 +322,7 @@ const SetupResourceAnimationResult = (props: FormModuleProps) => {
   //   setInputValueValid(valid);
   // };
 
-  const changeActualValue = (e) => {
+  const changeActualValue = (e: any) => {
     setActualValue(e.target.value as string);
     if (selectedProperty === 'None') {
       return;
@@ -338,7 +340,7 @@ const SetupResourceAnimationResult = (props: FormModuleProps) => {
             validUniqueTriggers.length !== 0 &&
             validUniqueTriggers.map((trig) => (
               <>
-                <ResourceThumb
+                {/* <ResourceThumb
                   onClick={resourceSelectHandler}
                   selectedResource={selectedResource}
                   res={
@@ -356,7 +358,7 @@ const SetupResourceAnimationResult = (props: FormModuleProps) => {
                   selectedTriggerEvent={
                     selectedTriggerEventResource?.id
                   }
-                />
+                /> */}
               </>
             ))}
         </>
@@ -364,6 +366,7 @@ const SetupResourceAnimationResult = (props: FormModuleProps) => {
         {resources &&
           resources.map((res) => (
             <ResourceThumb
+              key={res.resourceID}
               onClick={resourceSelectHandler}
               selectedResource={selectedResource}
               res={res}
@@ -389,8 +392,9 @@ const SetupResourceAnimationResult = (props: FormModuleProps) => {
                 >
                   None
                 </option>
-                {resourcePropertyOptions.map((typ) => (
+                {resourcePropertyOptions.map((typ, index) => (
                   <option
+                    key={index}
                     className={
                       builderStyles.resourcePropertySelectOption
                     }
@@ -578,39 +582,39 @@ export default function ActionsWindow() {
         //set the result data
         //set on the current setting action
         if (currentSettingAction.id === selectedAction) {
-          console.log('accept', [
-            ...currentSettingAction.results,
-            {
-              id: uuidv4(),
-              type: 'Resource Animation Result',
-              result: {
-                triggerEventRes: data.resID ? false : true,
-                resourceID:
-                  data.resID !== ''
-                    ? data.resID
-                    : data.triggerEventRes,
-                property: data.property,
-                valueType: data.valueType,
-                value: { value: data.value },
-              },
-            },
-          ]);
-          return setCurrentSettingAction({
-            ...currentSettingAction,
-            results: [
-              ...currentSettingAction.results,
-              {
-                id: uuidv4(),
-                type: 'Resource Animation Result',
-                result: {
-                  resourceID: data.resID,
-                  property: data.property,
-                  valueType: data.valueType,
-                  value: { value: data.value },
-                },
-              },
-            ],
-          });
+          // console.log('accept', [
+          //   ...currentSettingAction.results,
+          //   {
+          //     id: uuidv4(),
+          //     type: 'Resource Animation Result',
+          //     result: {
+          //       triggerEventRes: data.resID ? false : true,
+          //       resourceID:
+          //         data.resID !== ''
+          //           ? data.resID
+          //           : data.triggerEventRes,
+          //       property: data.property,
+          //       valueType: data.valueType,
+          //       value: { value: data.value },
+          //     },
+          //   },
+          // ]);
+          // return setCurrentSettingAction({
+          //   ...currentSettingAction,
+          //   results: [
+          //     ...currentSettingAction.results,
+          //     {
+          //       id: uuidv4(),
+          //       type: 'Resource Animation Result',
+          //       result: {
+          //         resourceID: data.resID,
+          //         property: data.property,
+          //         valueType: data.valueType,
+          //         value: { value: data.value },
+          //       },
+          //     },
+          //   ],
+          // });
         }
         // console.log('no return --> change');
         addResult(selectedAction, {
@@ -713,8 +717,9 @@ export default function ActionsWindow() {
         >
           &gt; Create Action &gt;
         </a>
-        {settingStages.map((setting) => (
+        {settingStages.map((setting, index) => (
           <a
+            key={index}
             className={builderStyles.pill}
             onClick={() => pillClick(setting)}
           >

@@ -19,7 +19,7 @@ export default function Clip(props: ClipProps) {
   const [pos, setPos] = useState();
   const [startPos, setStartPos] = useState<Object>({});
 
-  const imgRef = useRef();
+  const imgRef = useRef(null);
 
   const [hover, setHover] = useState<boolean>(false);
 
@@ -39,8 +39,13 @@ export default function Clip(props: ClipProps) {
     // const thumb = e.target as Element;
     const thumb = imgRef.current;
     console.log(imgRef.current);
-    if (thumb != null)
-      props.clipDrop(thumb.getBoundingClientRect(), props.audioFile);
+    if (thumb != null) {
+      const thumbEl: HTMLElement = thumb;
+      props.clipDrop(
+        thumbEl.getBoundingClientRect(),
+        props.audioFile
+      );
+    }
   };
 
   const playHover = () => {

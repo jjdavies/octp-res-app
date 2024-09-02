@@ -1,6 +1,6 @@
 import Action from './Action'
-import ResourceEvent from './ResourceEvent';
-import ActivityEvent from './ActivityEvent';
+import ResourceEvent from './actionSystem/ResourceEvent';
+import ActivityEvent from './actionSystem/ActivityEvent';
 
 export default interface Trigger{
     id:string;

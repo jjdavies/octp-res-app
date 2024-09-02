@@ -54,7 +54,7 @@ export default function Button(props: ButtonProps) {
     filter: `saturate(${imageFormatDisable ? 0 : 100}%)`,
   };
 
-  const buttonHandler = () => {
+  const buttonHandlerFunc = () => {
     //!!
 
     //still require disable checking on top pane
@@ -74,7 +74,7 @@ export default function Button(props: ButtonProps) {
         activityStage={currentStage}
         selectedImage={selectedImage}
         disabled={imageFormatDisable}
-        buttonHandler={buttonHandler}
+        buttonHandler={buttonHandlerFunc}
       />
     );
   }
@@ -82,7 +82,7 @@ export default function Button(props: ButtonProps) {
     return (
       <SetDraggers
         activityData={data}
-        buttonHandler={buttonHandler}
+        buttonHandler={buttonHandlerFunc}
         setDraggers={setDraggers}
         settingDraggersActive={settingDraggersActive}
       />
@@ -92,7 +92,7 @@ export default function Button(props: ButtonProps) {
     return (
       <SetDropPosition
         activityData={data}
-        buttonHandler={buttonHandler}
+        buttonHandler={buttonHandlerFunc}
         setDraggers={setDraggers}
         settingDropPositionActive={settingDropPositionActive}
       />
@@ -102,7 +102,7 @@ export default function Button(props: ButtonProps) {
     return (
       <SetConnection
         activityData={data}
-        buttonHandler={buttonHandler}
+        buttonHandler={buttonHandlerFunc}
         setConnection={setConnection}
         settingConnectionActive={settingConnectionActive}
         disabled={settingDraggersActive}
@@ -121,7 +121,7 @@ export default function Button(props: ButtonProps) {
             ? settingCorrect
             : settingIncorrect
         }
-        buttonHandler={buttonHandler}
+        buttonHandler={buttonHandlerFunc}
         selectedImage={selectedImage}
       />
     );
@@ -129,7 +129,7 @@ export default function Button(props: ButtonProps) {
   if (props.buttonData.name === 'actionsPaneButton') {
     return (
       <ActionsPaneButton
-        buttonHandler={buttonHandler}
+        buttonHandler={buttonHandlerFunc}
         active={actionsPaneActive}
       />
     );
@@ -142,9 +142,9 @@ export default function Button(props: ButtonProps) {
             (stage) => stage.stageID === currentStageID
           )[0]
         }
-        buttonHandler={buttonHandler}
-        setConnection={setConnection}
-        settingConnectionActive={settingConnectionActive}
+        // buttonHandler={buttonHandlerFunc}
+        // setConnection={setConnection}
+        // settingConnectionActive={settingConnectionActive}
       />
     );
   }
@@ -161,7 +161,10 @@ export default function Button(props: ButtonProps) {
     }
 
     return (
-      <div className={builderStyles.button} onClick={buttonHandler}>
+      <div
+        className={builderStyles.button}
+        onClick={buttonHandlerFunc}
+      >
         <Image
           className={builderStyles.buttonImage}
           src={src}
@@ -174,7 +177,7 @@ export default function Button(props: ButtonProps) {
     );
   }
   return (
-    <div className={builderStyles.button} onClick={buttonHandler}>
+    <div className={builderStyles.button} onClick={buttonHandlerFunc}>
       <Image
         className={builderStyles.buttonImage}
         src={props.buttonData.icon}

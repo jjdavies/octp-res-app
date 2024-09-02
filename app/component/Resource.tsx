@@ -7,7 +7,12 @@ import React, {
   useState,
   CSSProperties,
 } from 'react';
-import Draggable from 'react-draggable';
+import Draggable, {
+  DraggableCore,
+  DraggableData,
+  DraggableEvent,
+  DraggableEventHandler,
+} from 'react-draggable';
 import ActivityResource from '../interfaces/ActivityResource';
 import DataContext from './player/DataContext';
 
@@ -35,8 +40,8 @@ export default function Resource(props: ResourceProps) {
     matchSelect,
     selectNewMatch,
     currentStageID,
-    triggerAction,
-    triggerActions,
+    // triggerAction,
+    // triggerActions,
   } = useContext(DataContext);
 
   const activityResource = props.resourceData;
@@ -63,12 +68,10 @@ export default function Resource(props: ResourceProps) {
   const [showMultiChoiceAnswer, setShowMultiChoiceAnswer] =
     useState(false);
 
-  const filter = [
+  const filter =
     matchSelect === activityResource.resourceID
       ? 'drop-shadow(0px 0px 15px yellow'
-      : '',
-  ];
-
+      : '';
   const [
     currentAnimationPropertyValues,
     setCurrentAnimationPropertyValues,
@@ -115,20 +118,20 @@ export default function Resource(props: ResourceProps) {
     [currentAnimationPropertyValues, targetAnimationPropertyValues]
   );
 
-  const actionsWithResTriggers = data?.actions.map((act) => {
-    const relActions = act.triggers.filter(
-      (trig) => trig.type === 'ResourceTrigger'
-    );
-    return relActions[0].trigger.resourceID;
-  });
-  const isResourceTrigger: boolean =
-    (actionsWithResTriggers?.indexOf(activityResource.resourceID) !==
-      -1 &&
-      currentAnimationPropertyValues.opacity !== '0%') ||
-    activityResource.resourceSettings.multichoice !== '' ||
-    data?.stages.filter(
-      (stage) => stage.stageID === currentStageID
-    )[0].connections.length !== 0;
+  // const actionsWithResTriggers = data?.actions.map((act) => {
+  //   const relActions = act.triggers.filter(
+  //     (trig) => trig.type === 'ResourceTrigger'
+  //   );
+  //   return relActions[0].trigger.resourceID;
+  // });
+  // const isResourceTrigger: boolean =
+  //   (actionsWithResTriggers?.indexOf(activityResource.resourceID) !==
+  //     -1 &&
+  //     currentAnimationPropertyValues.opacity !== '0%') ||
+  //   activityResource.resourceSettings.multichoice !== '' ||
+  //   data?.stages.filter(
+  //     (stage) => stage.stageID === currentStageID
+  //   )[0].connections.length !== 0;
 
   const imgDivStyle: CSSProperties = {
     position: 'absolute',
@@ -160,10 +163,11 @@ export default function Resource(props: ResourceProps) {
       };
       animations.map((anim) => {
         if (anim.property === 'position') {
+          const animValue: string = anim.value as string;
           let posX: number =
-            anim.value.split(',')[0].split('px')[0] - pos.x;
+            +animValue.split(',')[0].split('px')[0] - pos.x;
           let posY: number =
-            anim.value.split(',')[1].split('px')[0] - pos.y;
+            +animValue.split(',')[1].split('px')[0] - pos.y;
           console.log(posX, posY);
           // let posY: number = anim.value.split(',')[1];
           return (newAnims = {
@@ -190,42 +194,43 @@ export default function Resource(props: ResourceProps) {
     }
   }, [props]);
 
-  const checkForActions = (event: string) => {
-    if (data && data.actions) {
-      const relActions = data.actions.filter((action) => {
-        const relTriggers = action.triggers.filter(
-          (trig: Trigger) => {
-            console.log(trig);
-            if (
-              trig.type === 'ResourceTrigger' &&
-              trig.trigger.resourceID ===
-                activityResource.resourceID &&
-              trig.trigger.event === event
-            )
-              return true;
-            return false;
-          }
-        );
-        if (relTriggers.length > 0) return true;
-        return false;
-      });
-      console.log(relActions);
-      triggerActions(relActions);
-      // relActions.map((action) => triggerAction(action));
-    }
-  };
+  // const checkForActions = (event: string) => {
+  //   if (data && data.actions) {
+  //     const relActions = data.actions.filter((action) => {
+  //       const relTriggers = action.triggers.filter(
+  //         (trig: Trigger) => {
+  //           console.log(trig);
+  //           if (
+  //             trig.type === 'ResourceTrigger' &&
+  //             trig.trigger.resourceID ===
+  //               activityResource.resourceID &&
+  //             trig.trigger.event === event
+  //           )
+  //             return true;
+  //           return false;
+  //         }
+  //       );
+  //       if (relTriggers.length > 0) return true;
+  //       return false;
+  //     });
+  //     // console.log(relActions);
+  //     // triggerActions(relActions);
+  //     // relActions.map((action) => triggerAction(action));
+  //   }
+  // };
 
   const dragStart = () => {
     setHasDragged(false);
   };
 
-  const dragInProgress = (e, ui) => {
-    // console.log(ui.x, ui.y);
+  const dragInProgress = (e: DraggableEvent, ui: DraggableData) => {
+    console.log(e.type, ui);
     setHasDragged(true);
+    // setPos({ x: ui.x, y: ui.y });
     setPos({ x: ui.x, y: ui.y });
   };
 
-  const dragComplete = (e, ui) => {
+  const dragComplete = (e: DraggableEvent, ui: DraggableData) => {
     console.log(ui.x, ui.y);
     if (props.multi && props.addResource) props.addResource();
     if (activityResource.resourceSettings.targetPosition !== '0,0') {
@@ -246,7 +251,7 @@ export default function Resource(props: ResourceProps) {
         //drag to target success
         setPos({ x: targetPos.x, y: targetPos.y });
         //check for drag to target success action
-        checkForActions('drag to target - success');
+        // checkForActions('drag to target - success');
         return;
       }
 
@@ -260,7 +265,7 @@ export default function Resource(props: ResourceProps) {
     //check that a drag hasn't occurred
     if (!hasDragged) {
       //check for actions
-      checkForActions('Click');
+      // checkForActions('Click');
       //check for connections
       const connections = data?.stages.filter(
         (stage) => stage.stageID === currentStageID
@@ -309,7 +314,8 @@ export default function Resource(props: ResourceProps) {
             style={{
               ...imgDivStyle,
               ...{
-                pointerEvents: isResourceTrigger ? 'initial' : 'none',
+                // pointerEvents: isResourceTrigger ? 'initial' : 'none',
+                pointerEvents: 'none',
               },
               ...springs,
             }}
@@ -364,9 +370,7 @@ export default function Resource(props: ResourceProps) {
                 style={{
                   ...imgDivStyle,
                   ...{
-                    pointerEvents: isResourceTrigger
-                      ? 'initial'
-                      : 'initial',
+                    pointerEvents: 'initial',
                   },
                   ...springs,
                 }}

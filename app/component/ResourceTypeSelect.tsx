@@ -2,13 +2,23 @@ import React, { useContext } from 'react';
 import DataContext from './DataContext';
 
 export default function ResourceTypeSelect() {
-  const { data, selectedImage, setZPosType } = useContext(DataContext);
-  const selectedResource = data?.setup.activitySettings.resources.filter(
-    (res) => res.resourceID === selectedImage,
-  )[0];
+  const { data, selectedImage, setZPosType, currentStageID } =
+    useContext(DataContext);
+  // const selectedResource =
+  //   data?.setup.activitySettings.resources.filter(
+  //     (res) => res.resourceID === selectedImage
+  //   )[0];
+  const selectedResource = data?.stages
+    .filter((stg) => stg.stageID === currentStageID)[0]
+    .activitySettings.resources.filter(
+      (res) => res.resourceID === selectedImage
+    )[0];
   const zPosType = selectedResource?.resourceSettings.zPosType;
+  // const zPosType = selectedResource;
 
-  const changeZPosType = (e) => {
+  const changeZPosType = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setZPosType(selectedResource?.resourceID, e.target.value);
   };
 
@@ -17,7 +27,7 @@ export default function ResourceTypeSelect() {
       {selectedImage !== '' && (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <label htmlFor="zPosTypeSelect">
-            Resource 'z' <br></br>Position Type
+            Resource `&apos;`z`&apos;` <br></br>Position Type
           </label>
           <select
             id="zPosTypeSelect"

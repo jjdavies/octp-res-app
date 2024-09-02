@@ -116,6 +116,7 @@ export default function TopPane(props: TopPaneProps) {
             .filter((button) => button.group === 'format')
             .map((button) => (
               <NewButton
+                key={button.name}
                 buttonData={button}
                 buttonHandler={buttonHandler}
               />
@@ -130,6 +131,7 @@ export default function TopPane(props: TopPaneProps) {
             .filter((button) => button.group === 'dragging')
             .map((button) => (
               <NewButton
+                key={button.name}
                 buttonData={button}
                 buttonHandler={buttonHandler}
               />
@@ -144,6 +146,7 @@ export default function TopPane(props: TopPaneProps) {
             .filter((button) => button.group === 'setup')
             .map((button) => (
               <NewButton
+                key={button.name}
                 buttonData={button}
                 buttonHandler={buttonHandler}
               />
@@ -158,6 +161,7 @@ export default function TopPane(props: TopPaneProps) {
             .filter((button) => button.group === 'tools')
             .map((button) => (
               <NewButton
+                key={button.name}
                 buttonData={button}
                 buttonHandler={buttonHandler}
               />
@@ -172,6 +176,7 @@ export default function TopPane(props: TopPaneProps) {
             .filter((button) => button.group === 'file')
             .map((button) => (
               <NewButton
+                key={button.name}
                 buttonData={button}
                 buttonHandler={buttonHandler}
               />

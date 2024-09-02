@@ -91,7 +91,8 @@ const init = () => {
   });
 };
 
-const DayNight = React.memo(() => {
+// const DayNight = React.memo(() => {
+const DayNight = () => {
   const [dayStage, setDayStage] = useState('none');
   const [overlay, setOverlay] = useState(false);
   useEffect(() => {
@@ -171,6 +172,7 @@ const DayNight = React.memo(() => {
       </div>
     </div>
   );
-});
+};
+const MemoizedDayNight = React.memo(DayNight);
 
-export default DayNight;
+export default MemoizedDayNight;

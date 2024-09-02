@@ -47,16 +47,12 @@ export default function SidePane(props: SidePaneProps) {
   return (
     <div className={builderStyles.leftPane}>
       <div className={builderStyles.fileUploader}>
-        <FileUploader
-          handleChange={handleChange}
-          children={
-            <div className={builderStyles.sidePaneFileDrop}>
-              Drag files here.
-              <br /> Or click to add.
-            </div>
-          }
-          multiple
-        />
+        <FileUploader handleChange={handleChange} multiple>
+          <div className={builderStyles.sidePaneFileDrop}>
+            Drag files here.
+            <br /> Or click to add.
+          </div>
+        </FileUploader>
       </div>
       <div className={builderStyles.imagesList}>
         {imageFiles.map((fil) => (

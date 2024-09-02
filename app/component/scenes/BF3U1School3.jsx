@@ -100,7 +100,7 @@ const init = () => {
 
 // eslint-disable-next-line react/display-name
 const BF3School = React.memo(() => {
-  const [soundsStarted, setSoundsStarted] = useState<boolean>(false);
+  const [soundsStarted, setSoundsStarted] = useState(false);
 
   const [schoolSound, schoolsound] = useSound(
     '/sounds/schoolambience.mp3',
@@ -231,7 +231,7 @@ const BF3School = React.memo(() => {
     true,
   ]);
   const [resetAllWorkers, setResetAllWorkers] =
-    useState<boolean>(false);
+    useState(false);
 
   useEffect(() => {
     var player = init();
@@ -266,7 +266,7 @@ const BF3School = React.memo(() => {
     );
   };
 
-  const handleWorkerStop = (e: MouseEvent) => {
+  const handleWorkerStop = (e) => {
     let placed = false;
     const worker = workers.filter(
       (wrkr) => wrkr.name === e.target.id
