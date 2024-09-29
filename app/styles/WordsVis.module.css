@@ -1,0 +1,44 @@
+.html {
+  overflow: 100vh;
+}
+
+.container {
+  background: rgb(111, 172, 187);
+  width: 100%;
+  height: 100vh;
+  color: black;
+  text-align: center;
+  overflow: hidden;
+  margin: auto;
+}
+
+.boxedElement {
+  background: white;
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  margin: auto;
+  border: solid 1px black;
+  padding: 3px 5px;
+  cursor: pointer;
+  overflow-y: hidden;
+  font-size: 30px;
+}
+
+.wordInput {
+  margin: auto;
+  font-size: 50px;
+  width: 30%;
+  text-align: center;
+  padding: 10px;
+  min-width: 250px;
+}
+
+.wordType {
+  font-size: 50px;
+}
+
+.audioButton {
+  /* width: auto; */
+  /* max-height: 100%; */
+}

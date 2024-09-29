@@ -13,7 +13,7 @@ interface VideoLinkProps {
   // folder: string;
   file: string;
   tags: string[];
-  thumb: string;
+  thumb: string | undefined;
   selected: string[];
   typeFilter: string;
   type: string;

@@ -109,8 +109,8 @@ export default function Player(props: PlayerProps) {
             onContextMenu={generateThumb}
             onMouseEnter={navEnter}
             onMouseOut={navLeave}
-            onClick={() => navigateRight}
-            onTouchEnd={() => navigateRight}
+            onClick={() => navigateRight()}
+            onTouchEnd={() => navigateRight()}
             alt="nav right arrow"
           />
         </div>

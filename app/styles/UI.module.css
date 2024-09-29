@@ -59,13 +59,19 @@
   align-items: center;
 }
 
+.menuContainer {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  background: rgb(162, 221, 255);
+}
+
 .mainMenu {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 100vh;
-  background: rgb(162, 221, 255);
+  /* height: 100vh; */
   color: black;
 }
 
@@ -101,5 +107,16 @@
   min-width: 100px;
   min-height: 108px;
   cursor: pointer;
+  color: black;
+}
+
+.wordInput {
+  margin: auto 7px;
+  font-size: 35px;
+  width: 30%;
+  text-align: center;
+  padding: 10px;
+  min-width: 250px;
+  background: lightblue;
   color: black;
 }
